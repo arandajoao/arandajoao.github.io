@@ -7,6 +7,10 @@
 <meta name="author" content="João Aranda">
 <link rel="icon" href="style/images/icon.ico" type="image/x-icon"/>
 <link rel="shortcut icon" href="style/images/icon.ico" type="image/x-icon"/>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+
 <title>João Aranda</title>
 <!-- Bootstrap core CSS -->
 <link href="style/css/bootstrap.min.css" rel="stylesheet">
@@ -33,7 +37,7 @@
     <!-- /.navbar-header -->
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="current"><a href="#home" class="hint--right" data-hint="Home"><i class="budicon-home-1"></i><span>Home</span></a></li>
+        <li class="current"><a href="#home" class="hint--right" data-hint="Início"><i class="budicon-home-1"></i><span>Início</span></a></li>
         <li><a href="#portfolio" class="hint--right" data-hint="Portfolio"><i class="budicon-image"></i><span>Portfolio</span></a></li>
         <li><a href="#about" class="hint--right" data-hint="Sobre"><i class="budicon-author"></i><span>Sobre</span></a></li>
         <li><a href="#contact" class="hint--right" data-hint="Contato"><i class="budicon-profile"></i><span>Contato</span></a></li>
@@ -62,7 +66,7 @@
       <div class="fullscreenbanner">
         <ul>
           <li data-transition="fade"> <img src="style/images/dummy.png"  alt="slidebg1" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="repeat">
-            <h1 class="tp-caption caption large sfb" data-x="center" data-y="center" data-voffset="-25" data-speed="900" data-start="1000" data-endspeed="100" data-easing="Sine.easeOut">Olá! Meu nome é João Aranda </h1>
+            <h1 class="tp-caption caption large sfb shouldtranslate" id="title" data-x="center" data-y="center" data-voffset="-25" data-speed="900" data-start="1000" data-endspeed="100" data-easing="Sine.easeOut" >Olá! Meu nome é João Aranda </h1>
             <div class="tp-caption small tp-fade fadeout tp-resizeme" data-x="center" data-y="center" data-voffset="25" data-speed="100"
 			data-start="1500"
 			data-easing="Power4.easeOut"
@@ -281,9 +285,9 @@
         </div>
         <!-- /.services-2 -->
         <div class="divide30"></div>
-      <!--div class="form-container">
+      <div class="form-container">
           <div class="response alert alert-success"></div>
-          <form class="forms" action="contact/form-handler.php" method="post">
+          <form class="forms" action="https://formspree.io/arandajoao98@gmail.com" method="post">
             <fieldset>
               <div class="row">
                 <div class="col-sm-6">
@@ -362,6 +366,18 @@
 <script src="style/js/scripts.js"></script>
 <script>
 	$.backstretch(["style/images/art/bg1.jpg"]);
+  $(".shouldtranslate").each(function()
+  {
+    var mylanguagejsonobject= '{ "title" : "le titre" }';
+
+  //get the id
+    var id = $(this).attr("id");
+    //get the property in the json with that id and set it as the new content
+    $(this).text(mylanguagejsonobject[id]);
+
+  });
 </script>
+
+
 </body>
 </html>
