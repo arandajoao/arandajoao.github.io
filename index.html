@@ -7,9 +7,12 @@
 <meta name="author" content="João Aranda">
 <link rel="icon" href="style/images/icon.ico" type="image/x-icon"/>
 <link rel="shortcut icon" href="style/images/icon.ico" type="image/x-icon"/>
-<script src="https://js.stripe.com/v3/"></script>
-<script src="https://checkout.stripe.com/checkout.js"></script>
-
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("user_FDqNHueag4LVMDX8WaJ92");
+   })();
+</script>
 
 <title>João Aranda</title>
 <!-- Bootstrap core CSS -->
@@ -287,13 +290,13 @@
         <div class="divide30"></div>
       <div class="form-container">
           <div class="response alert alert-success"></div>
-          <form class="forms" action="https://formspree.io/arandajoao98@gmail.com" method="post">
+          <form class="forms" id="contato">
             <fieldset>
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-row text-input-row name-field">
                     <label>Nome</label>
-                    <input type="text" name="name" class="text-input defaultText required"/>
+                    <input type="text" name="nome" class="text-input defaultText required"/>
                   </div>
                   <div class="form-row text-input-row email-field">
                     <label>Email</label>
@@ -301,13 +304,13 @@
                   </div>
                   <div class="form-row text-input-row subject-field">
                     <label>Assunto</label>
-                    <input type="text" name="subject" class="text-input defaultText"/>
+                    <input type="text" name="assunto" class="text-input defaultText"/>
                   </div>
                 </div>
                 <div class="col-sm-6 lp5">
                   <div class="form-row text-area-row">
                     <label>Mensagem</label>
-                    <textarea name="message" class="text-area required"></textarea>
+                    <textarea name="mensagem" class="text-area required"></textarea>
                   </div>
                   <div class="form-row hidden-row">
                     <input type="hidden" name="hidden" value="" />
@@ -319,7 +322,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="button-row pull-right">
-                    <input type="submit" value="Enviar Mensagem" name="submit" class="btn btn-submit bm0" />
+                    <input type="submit"  value="Enviar Mensagem" name="submit" class="btn btn-submit bm0" />
                   </div>
                 </div>
                 <div class="col-sm-6 lp5">
@@ -365,17 +368,68 @@
 <script src="style/js/plugins.js"></script>
 <script src="style/js/scripts.js"></script>
 <script>
+var myform = $("form#contato");
+var success = getParameterByName('success');
+var error = getParameterByName('error');
+if(success != null){
+  $('.response').append("Email enviado com sucesso!");
+  $('.response').css({"display" : "block"});
+
+}
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+myform.submit(function(event){
+	event.preventDefault();
+
+	var params = myform.serializeArray().reduce(function(obj, item) {
+     obj[item.name] = item.value;
+     return obj;
+  }, {});
+
+  // Change to your service ID, or keep using the default service
+  var service_id = "default_service";
+
+  var template_id = "contato";
+  var url = window.location.href;
+  myform.find("button").text("Sending...");
+  var form = document.getElementById('contato');
+
+  for(var i=0; i < form.elements.length; i++){
+      if(form.elements[i].value === '' && form.elements[i].hasAttribute('required')){
+        alert('There are some required fields!');
+        return false;
+      }
+    }
+  /*emailjs.send(service_id,template_id,params)
+  	.then(function(){
+      // alert("Sent!");
+      if(getParameterByName('success') == null){
+        url += '&success=1'
+      }
+      window.location.href = url;
+      location.reload();
+     }, function(err) {
+       //alert("Send email failed!\r\n Response:\n " + JSON.stringify(err));
+       if(getParameterByName('error') == null){
+         url += '&error=1'
+       }
+       window.location.href = url;
+       location.reload();
+    });
+  return false;*/
+});
+</script>
+<script>
 	$.backstretch(["style/images/art/bg1.jpg"]);
-  $(".shouldtranslate").each(function()
-  {
-    var mylanguagejsonobject= '{ "title" : "le titre" }';
-
-  //get the id
-    var id = $(this).attr("id");
-    //get the property in the json with that id and set it as the new content
-    $(this).text(mylanguagejsonobject[id]);
-
-  });
 </script>
 
 
